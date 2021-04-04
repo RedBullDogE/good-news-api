@@ -4,7 +4,7 @@ from django.db import models
 class Post(models.Model):
     title = models.CharField(max_length=128)
     author = models.CharField(max_length=32)
-    link = models.CharField(max_length=128, unique=True)
+    link = models.URLField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     upvotes_count = models.IntegerField(default=0, editable=False)
 
