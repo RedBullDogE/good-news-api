@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.decorators import action
 
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
@@ -26,6 +26,15 @@ class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
     pagination_class = DefaultPostListPagination
 
+    @action(detail=True, methods=['get'])
+    def upvote(self, request, pk=None):
+        post = self.get_object()
+        post.upvote()
+
+        serializer = PostSerializer(post)
+
+        return Response(serializer.data)
+
 
 class CommentViewSet(ModelViewSet):
     """
@@ -34,15 +43,3 @@ class CommentViewSet(ModelViewSet):
 
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-
-
-class UpvotePostView(RetrieveAPIView):
-    queryset = Post.objects.all()
-
-    def retrieve(self, request, *args, **kwargs):
-        post = self.get_object()
-        post.upvote()
-
-        serializer = PostSerializer(post)
-
-        return Response(serializer.data)
