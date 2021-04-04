@@ -1,8 +1,9 @@
-from .models import Post, Comment
 from rest_framework import serializers
 
+from .models import Comment, Post
 
-class CommentUnderPostSerializer(serializers.ModelSerializer):
+
+class CommentSerializer(serializers.ModelSerializer):
     """
     Serializer for Comment model, provides short and informative fields.
     """
@@ -14,7 +15,7 @@ class CommentUnderPostSerializer(serializers.ModelSerializer):
         fields = ["post", "author", "content"]
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class CommentDetailsSerializer(serializers.ModelSerializer):
     """
     Serializer for Comment model, which covers all model fields and
     should be used for details or creating comments.
@@ -30,11 +31,7 @@ class PostSerializer(serializers.ModelSerializer):
     Serializer for Post model, which covers all fields.
     """
 
-    comments = CommentUnderPostSerializer(
-        many=True,
-        read_only=True,
-        source="less_comments"
-    )
+    comments = CommentSerializer(many=True, read_only=True, source="less_comments")
 
     class Meta:
         model = Post

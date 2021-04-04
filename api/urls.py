@@ -13,10 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import include
 from django.conf.urls import url
-
+from django.urls import include
 from rest_framework_nested import routers
+
 from .views import CommentViewSet, PostViewSet
 
 router = routers.DefaultRouter()
@@ -26,7 +26,4 @@ posts_router = routers.NestedSimpleRouter(router, r"posts", lookup="post")
 posts_router.register(r"comments", CommentViewSet, basename="post-comments")
 
 
-urlpatterns = [
-    url(r"^", include(router.urls)),
-    url(r"^", include(posts_router.urls)),
-]
+urlpatterns = [url(r"^", include(router.urls)), url(r"^", include(posts_router.urls))]

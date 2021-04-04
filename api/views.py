@@ -1,10 +1,10 @@
-from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
-
-from .models import Post, Comment
-from .serializers import PostSerializer, CommentSerializer
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
+
+from .models import Comment, Post
+from .serializers import CommentDetailsSerializer, PostSerializer
 
 
 class DefaultPostListPagination(PageNumberPagination):
@@ -42,7 +42,7 @@ class CommentViewSet(ModelViewSet):
     """
 
     queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
+    serializer_class = CommentDetailsSerializer
 
     def get_queryset(self):
         return Comment.objects.filter(post=self.kwargs["post_pk"])
