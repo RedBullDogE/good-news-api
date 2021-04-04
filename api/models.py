@@ -12,6 +12,9 @@ class Post(models.Model):
         self.upvotes_count += 1
         self.save()
 
+    def less_comments(self):
+        return Comment.objects.filter(post=self).order_by("-created_at")[:5]
+
     def __str__(self):
         return f"{self.title} | {self.author}"
 

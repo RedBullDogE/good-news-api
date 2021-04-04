@@ -30,7 +30,11 @@ class PostSerializer(serializers.ModelSerializer):
     Serializer for Post model, which covers all fields.
     """
 
-    comments = CommentUnderPostSerializer(many=True, read_only=True)
+    comments = CommentUnderPostSerializer(
+        many=True,
+        read_only=True,
+        source="less_comments"
+    )
 
     class Meta:
         model = Post
