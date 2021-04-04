@@ -19,14 +19,14 @@ class DefaultPostListPagination(PageNumberPagination):
 
 class PostViewSet(ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    API endpoint that allows manipulate post data.
     """
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     pagination_class = DefaultPostListPagination
 
-    @action(detail=True, methods=['get'])
+    @action(detail=True, methods=["get"])
     def upvote(self, request, pk=None):
         post = self.get_object()
         post.upvote()
@@ -38,8 +38,11 @@ class PostViewSet(ModelViewSet):
 
 class CommentViewSet(ModelViewSet):
     """
-    API endpoint that allows groups to be viewed or edited.
+    API endpoint that allows manipulate comment data.
     """
 
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        return Comment.objects.filter(post=self.kwargs["post_pk"])

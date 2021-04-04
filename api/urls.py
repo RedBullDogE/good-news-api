@@ -22,7 +22,7 @@ from .views import CommentViewSet, PostViewSet
 router = routers.DefaultRouter()
 router.register(r"posts", PostViewSet)
 
-posts_router = routers.NestedSimpleRouter(router, r"posts", "post")
+posts_router = routers.NestedSimpleRouter(router, r"posts", lookup="post")
 posts_router.register(r"comments", CommentViewSet, basename="post-comments")
 
 
