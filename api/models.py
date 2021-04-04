@@ -6,7 +6,7 @@ class Post(models.Model):
     author = models.CharField(max_length=32)
     link = models.URLField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-    upvotes_count = models.IntegerField(default=0, editable=False)
+    upvotes_amount = models.IntegerField(default=0, editable=False)
 
     def upvote(self):
         self.upvotes_count += 1
