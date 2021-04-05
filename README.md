@@ -2,7 +2,7 @@
 
 MVP project of news board with ability to create and manipulate posts and comments.
 
-Postman collection is [here](https://www.postman.com/collections/8892cbbe3e18e75bef34)
+Postman documentation is [here](https://documenter.getpostman.com/view/10340815/TzCQc72P)
 
 Deployment link is [here](https://good-news-api.herokuapp.com/api/posts/)
 
