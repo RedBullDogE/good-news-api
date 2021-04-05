@@ -14,6 +14,7 @@ django = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
 drf-nested-routers = "*"
+celery = {extras = ["redis"], version = "*"}
 
 [requires]
 python_version = "3.8"

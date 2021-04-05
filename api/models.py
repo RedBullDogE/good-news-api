@@ -9,10 +9,16 @@ class Post(models.Model):
     upvotes_amount = models.IntegerField(default=0, editable=False)
 
     def upvote(self):
-        self.upvotes_count += 1
+        """
+        Extra model method for adding upvotes for specific post.
+        """
+        self.upvotes_amount += 1
         self.save()
 
     def less_comments(self):
+        """
+        Extra model method to return only recent part of the comments for specific post.
+        """
         return Comment.objects.filter(post=self).order_by("-created_at")[:5]
 
     def __str__(self):

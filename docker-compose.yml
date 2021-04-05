@@ -16,6 +16,28 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env.dev
+  redis:
+    image: "redis:alpine"
+  celery:
+    build: .
+    command: celery -A news_app worker -l info
+    volumes:
+      - .:/usr/src/app/
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+      - redis
+  celery-beat:
+    build: .
+    command: celery -A news_app beat -l info
+    volumes:
+      - .:/usr/src/app/
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+      - redis
 
 volumes:
   postgres_data:
